@@ -105,8 +105,9 @@ docker run -p 3000:3000 capture
 
 This project uses GitHub Actions for continuous integration and deployment:
 
-- **Build and Test**: Runs on every push and pull request to main/master branches
-- **Docker Build and Publish**: Builds and publishes a Docker image to GitHub Container Registry or a private registry on every push to main/master branches and when tags are created
+- **Docker Build and Publish**: Builds and publishes multi-architecture Docker images (AMD64 and ARM64) to GitHub Container Registry or a private registry on every push to main/master branches and when tags are created. See our [Multi-Architecture Docker Guide](./docs/multi-arch-docker.md) for details.
+
+> Note: A build-only workflow (build.yml.disabled) is included in the repository but is disabled by default. To enable it, rename the file from `build.yml.disabled` to `build.yml`.
 
 ### Pushing to a Private Registry
 
@@ -125,6 +126,29 @@ The Docker workflow is configured to support pushing to a private registry using
 When these variables are set, the workflow will automatically push to your private registry instead of GitHub Container Registry.
 
 For detailed information on using private registries with different providers (Docker Hub, AWS ECR, Google GCR, Azure ACR), see our [Private Registry Guide](./docs/private-registry.md).
+
+### Verifying Docker Image Pushes
+
+To verify that your Docker image has been successfully pushed to the registry, you can use the following commands:
+
+```bash
+# Log in to the registry
+docker login registry.example.com -u username -p password
+
+# Check if the image exists in the registry using the API
+curl -X GET https://registry.example.com/v2/your-image/tags/list -u username:password
+
+# Pull the image to verify it's accessible
+docker pull registry.example.com/your-image:tag
+
+# List local images to confirm the pull
+docker image ls | grep your-image
+
+# Inspect the image details (only works after pulling)
+docker inspect registry.example.com/your-image:tag
+```
+
+For more detailed verification commands and troubleshooting tips, see our [Docker Push Verification Guide](./docs/verify-docker-push.md).
 
 ### Selecting Specific Runners
 

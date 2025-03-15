@@ -14,9 +14,10 @@ jobs:
     # runs-on: ubuntu-22.04
     # runs-on: windows-2022
     # runs-on: macos-12
+    runs-on: ubuntu-latest
     
     # Or use self-hosted runners with labels
-    runs-on: [self-hosted, linux, x64]
+    # runs-on: [self-hosted, linux, x64]
     
     # You can also use multiple labels to target specific runners
     # runs-on: [self-hosted, linux, x64, production]
