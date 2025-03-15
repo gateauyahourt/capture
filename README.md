@@ -106,7 +106,25 @@ docker run -p 3000:3000 capture
 This project uses GitHub Actions for continuous integration and deployment:
 
 - **Build and Test**: Runs on every push and pull request to main/master branches
-- **Docker Build and Publish**: Builds and publishes a Docker image to GitHub Container Registry on every push to main/master branches and when tags are created
+- **Docker Build and Publish**: Builds and publishes a Docker image to GitHub Container Registry or a private registry on every push to main/master branches and when tags are created
+
+### Pushing to a Private Registry
+
+The Docker workflow is configured to support pushing to a private registry using environment variables. To use this feature:
+
+1. Go to your GitHub repository settings
+2. Navigate to "Secrets and variables" > "Actions"
+3. Add the following repository variables:
+   - `PRIVATE_REGISTRY_URL`: URL of your private registry (e.g., `registry.example.com`)
+   - `DOCKER_IMAGE_NAME`: Name of your image in the private registry (e.g., `myorg/myapp`)
+
+4. Add the following repository secrets:
+   - `PRIVATE_REGISTRY_USER`: Username for your private registry
+   - `PRIVATE_REGISTRY_PASSWORD`: Password or token for your private registry
+
+When these variables are set, the workflow will automatically push to your private registry instead of GitHub Container Registry.
+
+For detailed information on using private registries with different providers (Docker Hub, AWS ECR, Google GCR, Azure ACR), see our [Private Registry Guide](./docs/private-registry.md).
 
 ### Selecting Specific Runners
 
