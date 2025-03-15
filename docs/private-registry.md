@@ -121,8 +121,12 @@ PRIVATE_REGISTRY_PASSWORD: yourpassword
    - Check if the repository exists or needs to be created first
 
 3. **Registry URL Format**:
-   - Ensure the URL doesn't include `https://` or trailing slashes
-   - Example: Use `registry.example.com` not `https://registry.example.com/`
+   - The workflow will automatically remove `http://` or `https://` prefixes and trailing slashes from the registry URL
+   - You can provide URLs in any of these formats:
+     - `registry.example.com` (preferred)
+     - `https://registry.example.com`
+     - `http://registry.example.com`
+     - `registry.example.com/`
 
 ### Debugging
 
