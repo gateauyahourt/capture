@@ -1,0 +1,38 @@
+# Node.js
+node_modules
+npm-debug.log
+pnpm-debug.log
+yarn-debug.log
+yarn-error.log
+
+# TypeScript
+dist
+*.tsbuildinfo
+
+# Git
+.git
+.gitignore
+
+# GitHub
+.github
+
+# Editor directories and files
+.vscode
+.idea
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# Environment variables
+.env
+.env.*
+
+# Logs
+logs
+*.log
+
+# Tests
+coverage
+.nyc_output
