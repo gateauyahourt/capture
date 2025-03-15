@@ -22,7 +22,7 @@ jobs:
     # runs-on: macos-12
     
     # Or use self-hosted runners with labels
-    runs-on: [self-hosted, linux, x64]
+    runs-on: [linux, x64]
     
     # You can also use multiple labels to target specific runners
     # runs-on: [self-hosted, linux, x64, production]
