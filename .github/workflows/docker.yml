@@ -2,7 +2,7 @@ name: Build and Publish Docker Image
 
 on:
   push:
-    branches: [ main, master ]
+    branches: [ main ]
     tags: [ 'v*' ]
   workflow_dispatch:
 
@@ -82,8 +82,7 @@ jobs:
           tags: |
             type=semver,pattern={{version}}
             type=semver,pattern={{major}}.{{minor}}
-            type=ref,event=branch
-            type=sha,format=short
+            type=raw,value=latest,enable=${{ github.ref == 'refs/heads/main' }}
             
       # Extract metadata for private registry
       - name: Extract metadata for private registry
@@ -96,8 +95,7 @@ jobs:
           tags: |
             type=semver,pattern={{version}}
             type=semver,pattern={{major}}.{{minor}}
-            type=ref,event=branch
-            type=sha,format=short
+            type=raw,value=latest,enable=${{ github.ref == 'refs/heads/main' }}
 
       # Build and push to GitHub Container Registry
       - name: Build and push Docker image to GitHub Container Registry

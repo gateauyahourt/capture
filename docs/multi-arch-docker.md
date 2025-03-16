@@ -44,6 +44,18 @@ Notre workflow GitHub Actions utilise plusieurs composants pour créer des image
 La configuration des plateformes cibles se fait dans l'étape de build:
 
 ```yaml
+# Extract metadata for tags
+- name: Extract metadata
+  id: meta
+  uses: docker/metadata-action@v5
+  with:
+    images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+    tags: |
+      type=ref,event=branch
+      type=sha,format=short
+      type=raw,value=latest,enable=${{ github.ref == 'refs/heads/main' }}
+
+# Build and push Docker image
 - name: Build and push Docker image
   uses: docker/build-push-action@v5
   with:
@@ -52,6 +64,19 @@ La configuration des plateformes cibles se fait dans l'étape de build:
     platforms: linux/amd64,linux/arm64
     tags: ${{ steps.meta.outputs.tags }}
 ```
+
+### Stratégie de Tags
+
+Notre workflow utilise plusieurs stratégies de tags:
+
+1. **Tag par branche**: `registry.example.com/your-image:main`
+2. **Tag par SHA du commit**: `registry.example.com/your-image:sha-4979c2f`
+3. **Tag "latest"**: `registry.example.com/your-image:latest` (uniquement pour la branche main)
+4. **Tags sémantiques**: Pour les tags Git de version (v1.0.0, v2.1.0, etc.)
+   - `registry.example.com/your-image:1.0.0`
+   - `registry.example.com/your-image:1.0`
+
+Le tag "latest" est particulièrement utile car il pointe toujours vers la dernière version stable de l'image (la dernière version de la branche main).
 
 ## Vérification des images multi-architecture
 

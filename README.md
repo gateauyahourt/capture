@@ -105,7 +105,7 @@ docker run -p 3000:3000 capture
 
 This project uses GitHub Actions for continuous integration and deployment:
 
-- **Docker Build and Publish**: Builds and publishes multi-architecture Docker images (AMD64 and ARM64) to GitHub Container Registry or a private registry on every push to main/master branches and when tags are created. See our [Multi-Architecture Docker Guide](./docs/multi-arch-docker.md) for details.
+- **Docker Build and Publish**: Builds and publishes multi-architecture Docker images (AMD64 and ARM64) to GitHub Container Registry or a private registry on every push to the main branch and when tags are created. When building from the main branch, a "latest" tag is also pushed. See our [Multi-Architecture Docker Guide](./docs/multi-arch-docker.md) for details.
 
 > Note: A build-only workflow (build.yml.disabled) is included in the repository but is disabled by default. To enable it, rename the file from `build.yml.disabled` to `build.yml`.
 
